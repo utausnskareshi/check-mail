@@ -1,0 +1,33 @@
+<!-- ========================================================================
+     App.xaml
+     アプリケーション定義ファイル
+     ========================================================================
+     アプリケーション全体の設定とグローバルリソースを定義する。
+
+     StartupUri:
+       アプリケーション起動時に表示するウィンドウを指定する。
+       MainWindow.xaml が最初に読み込まれる。
+
+     ShutdownMode="OnExplicitShutdown":
+       ウィンドウを閉じてもアプリケーションは終了しない。
+       Application.Current.Shutdown() を明示的に呼び出した場合のみ終了する。
+       これにより、ウィンドウの×ボタンで閉じてもトレイ常駐が継続する。
+
+     Application.Resources:
+       XAML データバインディングで使用する値コンバーターを登録する。
+       - NullToCollapsed: null値をVisibility.Collapsedに変換(エラー表示制御)
+       - CountToColor: 未読数を色に変換(バッジの色制御)
+     ======================================================================== -->
+<Application x:Class="CheckMail.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CheckMail"
+             StartupUri="MainWindow.xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <!-- null値をCollapsed(非表示)に変換するコンバーター(エラーメッセージの表示/非表示) -->
+        <local:NullToCollapsedConverter x:Key="NullToCollapsed"/>
+        <!-- 未読数を色に変換するコンバーター(1以上=赤, 0=グレー) -->
+        <local:CountToColorConverter x:Key="CountToColor"/>
+    </Application.Resources>
+</Application>
